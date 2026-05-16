@@ -5,7 +5,9 @@
 
 
 int main() {
+
     inicializar_sistema();
+
     menu_inicial();
 
     return 0;
