@@ -10,11 +10,15 @@ typedef struct {
     int active;
 }Usuario;
 
-<<<<<<< HEAD
-=======
+void inicializar_sistema();
 int cadastro();
 void listagem();
 int login();
+int validar_username();
 
->>>>>>> origin/main
+extern Usuario armazenar[100];
+extern int totalusuarios;
+
+
+
 #endif

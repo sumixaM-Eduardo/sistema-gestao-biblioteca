@@ -5,6 +5,19 @@
 Usuario armazenar[100];
 int totalusuarios = 0;
 
+void inicializar_sistema () {
+    armazenar[0].id = 1;
+
+    strcpy(armazenar[0].username, "root");
+    strcpy(armazenar[0].name, "root");
+    strcpy(armazenar[0].password, "root123");
+
+    armazenar[0].type = 1;
+    armazenar[0].active = 1;
+
+    totalusuarios = 1;
+}
+
 int cadastro() {
     printf("\nCadastro de usuarios\n");
 
@@ -45,9 +58,7 @@ void listagem () {
         printf("Username: %s\n", armazenar[i].username);
 
     }
-<<<<<<< HEAD
-}
-=======
+
 }
 
 int login() {
@@ -55,7 +66,7 @@ int login() {
     char senha_digitada[50];
 
     printf("\n--- TELA DE LOGIN ---\n");
-)
+
     setbuf(stdin, NULL);
 
     printf("Username: ");
@@ -77,4 +88,12 @@ int login() {
     printf("\n[!] Erro: Username ou senha incorretos.\n");
     return 0; // N conseguiu fzr o login
 }
->>>>>>> origin/main
+
+int validar_username (char *username2) {
+    for (int i = 0; i < totalusuarios; i++) {
+        if (strcmp(armazenar[i].username, username2) == 0){
+            return 0;
+        }
+    }
+    return 1;
+}
