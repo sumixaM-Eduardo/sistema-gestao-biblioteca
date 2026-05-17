@@ -26,7 +26,7 @@ void listagem();
 
 int login();
 
-int validar_username();
+int validar_username(char *username2);
 
 
 extern Usuario armazenar[100];

@@ -25,6 +25,8 @@ void inicializar_sistema () {
 
 int cadastro() {
 
+    char username_auth[50];
+
     printf("\nCadastro de usuarios\n");
 
     printf("Digite o nome do usuario: ");
@@ -34,22 +36,27 @@ int cadastro() {
     armazenar[totalusuarios].name[
         strcspn(armazenar[totalusuarios].name, "\n")
     ] = '\0';
+    while (1) {
+        printf("\nDigite seu username: \n");
 
-    printf("\nDigite seu username: \n");
+        fgets(username_auth, 50, stdin);
+        username_auth[strcspn(username_auth, "\n")] = '\0';
 
-    fgets(armazenar[totalusuarios].username, 50, stdin);
+        if (validar_username(username_auth) == 0) {
+            printf("Username já em Uso! ");
+            continue;
+        }
 
-    armazenar[totalusuarios].username[
-        strcspn(armazenar[totalusuarios].username, "\n")
-    ] = '\0';
+        strcpy(armazenar[totalusuarios].username, username_auth);
+        break;
+    }
+        printf("\nDigite seu password: \n");
 
-    printf("\nDigite seu password: \n");
+        fgets(armazenar[totalusuarios].password, 50, stdin);
 
-    fgets(armazenar[totalusuarios].password, 50, stdin);
-
-    armazenar[totalusuarios].password[
-        strcspn(armazenar[totalusuarios].password, "\n")
-    ] = '\0';
+        armazenar[totalusuarios].password[
+            strcspn(armazenar[totalusuarios].password, "\n")
+        ] = '\0';
 
     totalusuarios++;
 
@@ -84,8 +91,6 @@ int login() {
     char senha_digitada[50];
 
     printf("\n--- TELA DE LOGIN ---\n");
-
-    setbuf(stdin, NULL);
 
     printf("Username: ");
 
