@@ -5,6 +5,7 @@
 
 
 int main() {
+    system("clear");
 
     inicializar_sistema();
 
