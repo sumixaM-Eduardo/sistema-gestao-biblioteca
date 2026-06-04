@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "livro.h"
+#include "relatorios.h"
 
 Usuario armazenar[100];
 Usuario usuario_logado;
@@ -74,6 +75,10 @@ int cadastro() {
     armazenar[totalusuarios].type = 2;               // 2 = usuario comum
     armazenar[totalusuarios].active = 1;             // 1 = Conta ativa
 
+    char evento[100];
+    sprintf(evento, "O usuarios %s foi cadastrado.", armazenar[totalusuarios].username);
+    data_log(evento);
+
     // usuario criado com sucesso, incrementa no total de usuarios
     totalusuarios++;
     system("clear");
@@ -81,6 +86,8 @@ int cadastro() {
     printf("\nPressione [ENTER] para voltar ao menu...");
     getchar();
     system("clear");
+
+
 
     return 0; // Sucesso
 }
@@ -110,6 +117,10 @@ int login() {
 
             // Salva a conta encontrada na sessão global ativa (Corrige o lixo de memória)
             usuario_logado = armazenar[i]; 
+
+            char evento[100];
+            sprintf(evento, "O usuario %s fez login", armazenar[i].username);
+            data_log(evento);
 
             system("clear");
             printf("\n");
