@@ -18,6 +18,8 @@ int cadastro();
 void listagem();
 int login();
 int validar_username(char *username2);
+int armazenar_usuarios(Usuario *usuario);
+int carregar_usuarios();
 
 
 // Transformando em variaveis globais
