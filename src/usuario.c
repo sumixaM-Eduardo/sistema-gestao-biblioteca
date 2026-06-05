@@ -6,7 +6,7 @@
 #include "relatorios.h"
 
 Usuario armazenar[100];
-Usuario usuario_logado;
+Usuario *usuario_logado = NULL;
 
 int totalusuarios = 0;
 
@@ -19,6 +19,8 @@ void inicializar_sistema () {
     armazenar[0].type = 1; // 1: Conta para root. 2: Conta comum
     armazenar[0].active = 1; // Conta ativa
     totalusuarios = 1; //Sistema ja começa com 1 usuario
+
+    armazenar_usuarios(&armazenar[0]);
 }
 
 // Função para cadastrar novos usuarios
@@ -79,6 +81,8 @@ int cadastro() {
     sprintf(evento, "O usuarios %s foi cadastrado.", armazenar[totalusuarios].username);
     data_log(evento);
 
+    armazenar_usuarios(&armazenar[totalusuarios]);
+
     // usuario criado com sucesso, incrementa no total de usuarios
     totalusuarios++;
     system("clear");
@@ -115,8 +119,14 @@ int login() {
         if (strcmp(armazenar[i].username, user_digitado) == 0 &&
             strcmp(armazenar[i].password, senha_digitada) == 0) {
 
+            usuario_logado = &armazenar[i];
+
             // Salva a conta encontrada na sessão global ativa (Corrige o lixo de memória)
-            usuario_logado = armazenar[i]; 
+
+
+            char evento[100];
+            sprintf(evento, "O usuario %s fez login", armazenar[i].username);
+            data_log(evento);
 
             char evento[100];
             sprintf(evento, "O usuario %s fez login", armazenar[i].username);
@@ -181,4 +191,40 @@ int validar_username (char *username2) {
     }
 
     return 1; // Não existe um usuario com esse username
+}
+
+int armazenar_usuarios(Usuario *usuario) {
+
+    FILE *arquivo = fopen("../data/usuarios.dat", "ab");
+
+    if (arquivo == NULL) {
+        printf("Arquivo não localizado!");
+        return 0;
+    }
+
+    fwrite(usuario, sizeof(Usuario), 1, arquivo);
+
+    fclose(arquivo);
+
+    return 1;
+}
+
+int carregar_usuarios() {
+
+    FILE *arquivo = fopen("../data/usuarios.dat", "rb");
+
+    if (arquivo == NULL) {
+        printf("Arquivo não encontrado");
+        return 0;
+    }
+
+    totalusuarios = 0;
+
+    while (fread(&armazenar[totalusuarios], sizeof(Usuario), 1, arquivo) == 1) {
+        totalusuarios++;
+    }
+
+    fclose(arquivo);
+
+    return totalusuarios > 0;
 }

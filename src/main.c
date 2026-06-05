@@ -7,7 +7,11 @@
 int main() {
     system("clear");
 
-    inicializar_sistema();
+    carregar_usuarios();
+    if (totalusuarios == 0) {
+        inicializar_sistema();
+    }
+
     inicializar_livros();
     menu_inicial();
 
