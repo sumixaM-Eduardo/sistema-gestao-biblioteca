@@ -210,7 +210,7 @@ void devolver_livro() {
                     acervo[j].quantidade++;
                     printf("\n[+] Livro '%s' devolvido com sucesso! [+]\n", acervo[j].titulo);
                     char evento [100];
-                    sprintf(evento, "O livro %s foi devolvido pelo usuario %s!", acervo[j].titulo, usuario_logado->name);
+                    snprintf(evento, sizeof(evento), "O livro %s foi devolvido pelo usuario %s!", acervo[j].titulo, usuario_logado->name);
                     data_log(evento);
                     break;
                 }

@@ -126,6 +126,7 @@ void menu_sistema() {
             listagem();
         }
         else if (opcao == 7 && usuario_logado->type == 1) {
+            menu_logs();
 
         }
 
@@ -135,4 +136,24 @@ void menu_sistema() {
             getchar();
         }
     }
+}
+
+int menu_logs() {
+    FILE *arquivo = fopen("../data/historico.log", "r");
+
+    if (arquivo == NULL) {
+        printf("Arquivo não localizado!");
+        return 0;
+    }
+
+    char linha[200];
+
+    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
+        printf("%s", linha);
+    }
+
+    fclose(arquivo);
+
+    printf("Pressione ENTER para Voltar...");
+    getchar();
 }

@@ -215,11 +215,13 @@ int carregar_usuarios() {
         return 0;
     }
 
-    while (fread(&armazenar[totalusuarios], sizeof(Usuario), 1, arquivo)) {
+    totalusuarios = 0;
+
+    while (fread(&armazenar[totalusuarios], sizeof(Usuario), 1, arquivo) == 1) {
         totalusuarios++;
     }
 
     fclose(arquivo);
 
-    return 1;
+    return totalusuarios > 0;
 }

@@ -7,7 +7,8 @@
 int main() {
     system("clear");
 
-    if (carregar_usuarios() == 0) {
+    carregar_usuarios();
+    if (totalusuarios == 0) {
         inicializar_sistema();
     }
 
