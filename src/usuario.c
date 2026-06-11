@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "livro.h"
+#include <ctype.h>
 #include "relatorios.h"
 
 Usuario armazenar[100];
@@ -26,7 +26,9 @@ void inicializar_sistema () {
 // Função para cadastrar novos usuarios
 int cadastro() {
     char username_auth[80];
-
+    if (limitar_usuarios() == 0) {
+        return 0;
+    }
     // Coleta e limpa o Nome Completo
     system("clear");
     printf("\n---- CADASTRO DE USUÁRIO ----\n");
@@ -37,6 +39,7 @@ int cadastro() {
 
     // Loop principal para validação do Username
     while (1) {
+        system("clear");
         printf("\n---- CADASTRO DE USUÁRIO ----\n");
         printf("Nome: %s\n", armazenar[totalusuarios].name);
         printf("--------------------------------\n");
@@ -44,6 +47,13 @@ int cadastro() {
         // Coleta e limpa o nome de usuário
         fgets(username_auth, 50, stdin);
         username_auth[strcspn(username_auth, "\n")] = '\0';
+        if (campo_vazio(username_auth) == 1) {
+            system("clear");
+            printf("Username não pode ficar vazio!...\n");
+            printf("Pressione [ENTER] para tentar novamente...\n");
+            getchar();
+            continue;
+        }
 
         // Se retornar 0 o username ja existe
         if (validar_username(username_auth) == 0) {
@@ -78,7 +88,7 @@ int cadastro() {
     armazenar[totalusuarios].active = 1;             // 1 = Conta ativa
 
     char evento[100];
-    sprintf(evento, "O usuarios %s foi cadastrado.", armazenar[totalusuarios].username);
+    sprintf(evento, "O usuario %s foi cadastrado.", armazenar[totalusuarios].username);
     data_log(evento);
 
     armazenar_usuarios(&armazenar[totalusuarios]);
@@ -185,7 +195,6 @@ int validar_username (char *username2) {
             return 0; // Ja existe um usuario com esse username
         }
     }
-
     return 1; // Não existe um usuario com esse username
 }
 
@@ -223,4 +232,25 @@ int carregar_usuarios() {
     fclose(arquivo);
 
     return totalusuarios > 0;
+}
+
+int limitar_usuarios() {
+    if (totalusuarios >= 100) {
+        system("clear");
+        printf("[!] Limite máximo de usuários atingido. [!]\n");
+        printf("Não é possível cadastrar mais usuários.\n");
+        printf("\nPressione [ENTER] para voltar...");
+        getchar();
+        return 0;
+    }
+    return 1;
+}
+
+int campo_vazio(char *texto) {
+    for (int i = 0; texto[i] != '\0'; i++) {
+        if (!isspace(texto[i])) {
+            return 0;
+        }
+    }
+    return 1;
 }

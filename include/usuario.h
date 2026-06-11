@@ -20,7 +20,8 @@ int login();
 int validar_username(char *username2);
 int armazenar_usuarios(Usuario *usuario);
 int carregar_usuarios();
-
+int limitar_usuarios();
+int campo_vazio();
 
 // Transformando em variaveis globais
 extern Usuario *usuario_logado;
