@@ -64,3 +64,77 @@ obj/
 *.idea
 
 *data/historico.log
+# Dependências e arquivos de compilação
+*.d
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Bibliotecas
+*.lib
+*.a
+*.la
+*.lo
+
+# Bibliotecas compartilhadas
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executáveis
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Arquivos de debug
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.dwo
+
+# Kernel modules
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Diretórios de build
+build/
+bin/
+obj/
+
+# Code::Blocks
+*.layout
+*.depend
+
+# CLion / JetBrains
+.idea/
+
+# Arquivos locais do projeto
+src/sistema
+
+# Dados gerados em execução
+data/*.log
+data/*.dat
+
+# Ferramentas auxiliares
+*.agents
+*.codex
