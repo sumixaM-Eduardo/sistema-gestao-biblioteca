@@ -59,5 +59,8 @@ obj/
 *.layout
 *.depend
 
-.agents
-.codex
+*.agents
+*.codex
+*.idea
+
+*data/historico.log
