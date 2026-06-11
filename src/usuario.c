@@ -127,7 +127,15 @@ int login() {
     //  Verifica um por um se as informações correspondem a um usuario e senha ja existentes
     for (int i = 0; i < totalusuarios; i++) {
         if (strcmp(armazenar[i].username, user_digitado) == 0 &&
-            strcmp(armazenar[i].password, senha_digitada) == 0) {
+            strcmp(armazenar[i].password, senha_digitada) == 0){
+
+            if (validar_atividade(&armazenar[i]) == 0) {
+                system("clear");
+                printf("[!] Esta conta está desativada. [!]\n");
+                printf("\nPressione [ENTER] para continuar...");
+                getchar();
+                return 0;
+            }
 
             usuario_logado = &armazenar[i];
 
@@ -251,6 +259,13 @@ int campo_vazio(char *texto) {
         if (!isspace(texto[i])) {
             return 0;
         }
+    }
+    return 1;
+}
+
+int validar_atividade(Usuario *usuario) {
+    if (usuario->active == 0) {
+        return 0;
     }
     return 1;
 }
