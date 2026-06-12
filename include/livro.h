@@ -20,8 +20,9 @@ void inicializar_livros();
 void listar_livros();
 void cadastrar_livro();
 void buscar_livro();
-int armazenar_livros();
-int carregar_livros();
+void menu_livros_adm();
+void editar_livro();
+void remover_livro();
 int armazenar_livros();
 int carregar_livros();
 

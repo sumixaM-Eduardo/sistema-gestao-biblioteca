@@ -62,7 +62,7 @@ void listar_livros() {
     for (int i = 0; i < totallivros; i++) {
         // Só mostra o livro se ele estiver ativo (active == 1)
         if (acervo[i].active == 1) {
-            printf("%-04d | %-28.28s | %-25.25s | %-5d\n", 
+            printf("%-4d | %-28.28s | %-25.25s | %-5d\n", 
                    acervo[i].id, 
                    acervo[i].titulo, 
                    acervo[i].autor, 
@@ -181,7 +181,7 @@ void buscar_livro() {
         int encontrado = 0;
         for (int i = 0; i < totallivros; i++) {
             if (acervo[i].id == id_busca && acervo[i].active == 1) {
-                printf("%-04d | %-28.28s | %-25.25s | %-5d\n",
+                printf("%-4d | %-28.28s | %-25.25s | %-5d\n",
                        acervo[i].id, acervo[i].titulo, acervo[i].autor, acervo[i].quantidade);
                 encontrado = 1;
                 break;
@@ -214,7 +214,7 @@ void buscar_livro() {
         for (int i = 0; i < totallivros; i++) {
             // strstr verifica se termo_busca é o titulo do livro
             if (acervo[i].active == 1 && strstr(acervo[i].titulo, termo_busca) != NULL) {
-                printf("%-04d | %-28.28s | %-25.25s | %-5d\n", 
+                printf("%-4d | %-28.28s | %-25.25s | %-5d\n", 
                        acervo[i].id, acervo[i].titulo, acervo[i].autor, acervo[i].quantidade);
                 encontrados++;
             }
@@ -230,6 +230,185 @@ void buscar_livro() {
     }
 
     printf("\nPressione [ENTER] para voltar ao menu...");
+    getchar();
+}
+
+
+// Submenu administrativo para gerenciar o acervo de livros
+void menu_livros_adm() {
+    int opcao = 0;
+
+    while (1) {
+        system("clear");
+        printf("====================================\n");
+        printf("          GERENCIAR LIVROS          \n");
+        printf("====================================\n");
+        printf("1. Cadastrar livro\n");
+        printf("2. Editar livro\n");
+        printf("3. Remover livro\n");
+        printf("0. Voltar\n");
+        printf("------------------------------------\n-> ");
+
+        if (scanf("%d", &opcao) != 1) {
+            while (getchar() != '\n');
+            printf("\n[!] Digite apenas números! [!]\n");
+            printf("\nPressione [ENTER] para continuar...");
+            getchar();
+            continue;
+        }
+        while (getchar() != '\n');
+
+        if (opcao == 0) {
+            break;
+        } else if (opcao == 1) {
+            cadastrar_livro();
+        } else if (opcao == 2) {
+            editar_livro();
+        } else if (opcao == 3) {
+            remover_livro();
+        } else {
+            printf("\n[!] Opção inválida! [!]\n");
+            printf("\nPressione [ENTER] para continuar...");
+            getchar();
+        }
+    }
+}
+
+// Permite ao administrador editar os dados de um livro ativo
+void editar_livro() {
+    int id_busca = 0;
+    int indice = -1;
+    char entrada[20];
+    int nova_quantidade = 0;
+
+    system("clear");
+    printf("====================================\n");
+    printf("            EDITAR LIVRO            \n");
+    printf("====================================\n");
+    printf("Digite o ID do livro que deseja editar:\n-> ");
+
+    if (scanf("%d", &id_busca) != 1) {
+        while (getchar() != '\n');
+        printf("\n[!] ID inválido! [!]\n");
+        printf("\nPressione [ENTER] para voltar...");
+        getchar();
+        return;
+    }
+    while (getchar() != '\n');
+
+    for (int i = 0; i < totallivros; i++) {
+        if (acervo[i].id == id_busca && acervo[i].active == 1) {
+            indice = i;
+            break;
+        }
+    }
+
+    if (indice == -1) {
+        printf("\n[!] Livro não encontrado ou removido! [!]\n");
+        printf("\nPressione [ENTER] para voltar...");
+        getchar();
+        return;
+    }
+
+    printf("\nLivro encontrado:\n");
+    printf("ID: %d\n", acervo[indice].id);
+    printf("Título atual: %s\n", acervo[indice].titulo);
+    printf("Autor atual: %s\n", acervo[indice].autor);
+    printf("Gênero atual: %s\n", acervo[indice].genero);
+    printf("Quantidade atual: %d\n", acervo[indice].quantidade);
+
+    printf("\nNovo título:\n-> ");
+    fgets(acervo[indice].titulo, sizeof(acervo[indice].titulo), stdin);
+    acervo[indice].titulo[strcspn(acervo[indice].titulo, "\n")] = '\0';
+
+    printf("Novo autor:\n-> ");
+    fgets(acervo[indice].autor, sizeof(acervo[indice].autor), stdin);
+    acervo[indice].autor[strcspn(acervo[indice].autor, "\n")] = '\0';
+
+    printf("Novo gênero:\n-> ");
+    fgets(acervo[indice].genero, sizeof(acervo[indice].genero), stdin);
+    acervo[indice].genero[strcspn(acervo[indice].genero, "\n")] = '\0';
+
+    printf("Nova quantidade:\n-> ");
+    fgets(entrada, sizeof(entrada), stdin);
+
+    if (sscanf(entrada, "%d", &nova_quantidade) != 1 || nova_quantidade < 0) {
+        printf("\n[!] Quantidade inválida! Edição cancelada. [!]\n");
+        printf("\nPressione [ENTER] para voltar...");
+        getchar();
+        return;
+    }
+
+    acervo[indice].quantidade = nova_quantidade;
+
+    if (armazenar_livros()) {
+        printf("\n[+] Livro editado com sucesso! [+]\n");
+    } else {
+        printf("\n[!] Erro ao salvar alterações do livro! [!]\n");
+    }
+
+    printf("\nPressione [ENTER] para continuar...");
+    getchar();
+}
+
+// Remove o livro do acervo usando exclusão lógica: active = 0
+void remover_livro() {
+    int id_busca = 0;
+    int indice = -1;
+    char confirmacao = 'n';
+
+    system("clear");
+    printf("====================================\n");
+    printf("            REMOVER LIVRO           \n");
+    printf("====================================\n");
+    printf("Digite o ID do livro que deseja remover:\n-> ");
+
+    if (scanf("%d", &id_busca) != 1) {
+        while (getchar() != '\n');
+        printf("\n[!] ID inválido! [!]\n");
+        printf("\nPressione [ENTER] para voltar...");
+        getchar();
+        return;
+    }
+    while (getchar() != '\n');
+
+    for (int i = 0; i < totallivros; i++) {
+        if (acervo[i].id == id_busca && acervo[i].active == 1) {
+            indice = i;
+            break;
+        }
+    }
+
+    if (indice == -1) {
+        printf("\n[!] Livro não encontrado ou já removido! [!]\n");
+        printf("\nPressione [ENTER] para voltar...");
+        getchar();
+        return;
+    }
+
+    printf("\nLivro encontrado:\n");
+    printf("ID: %d\n", acervo[indice].id);
+    printf("Título: %s\n", acervo[indice].titulo);
+    printf("Autor: %s\n", acervo[indice].autor);
+    printf("Quantidade: %d\n", acervo[indice].quantidade);
+
+    printf("\nTem certeza que deseja remover este livro? (s/n)\n-> ");
+    scanf(" %c", &confirmacao);
+    while (getchar() != '\n');
+
+    if (confirmacao == 's' || confirmacao == 'S') {
+        acervo[indice].active = 0;
+
+        if (armazenar_livros()) {
+            printf("\n[+] Livro removido com sucesso! [+]\n");
+        } else {
+            printf("\n[!] Erro ao salvar remoção do livro! [!]\n");
+        }
+    } else {
+        printf("\n[i] Remoção cancelada. [i]\n");
+    }
+
+    printf("\nPressione [ENTER] para continuar...");
     getchar();
 }
 

@@ -82,7 +82,7 @@ void menu_sistema() {
 
         // Bloqueio de Segurança: Só mostra se for o ROOT/ADMIN
         if (usuario_logado->type == 1) {
-            printf("5. [ADM] Cadastrar Novo Livro\n6. [ADM] Listar Todos os Utilizadores\n7. [ADM] Logs\n");
+            printf("5. [ADM] Livros\n6. [ADM] Listar Todos os Utilizadores\n7. [ADM] Logs\n");
         }
 
         printf("0. Fazer Logout (Sair)\n");
@@ -119,7 +119,7 @@ void menu_sistema() {
             devolver_livro();
         }
         else if (opcao == 5 && usuario_logado->type == 1) {
-            cadastrar_livro();
+            menu_livros_adm();
         }
         else if (opcao == 6 && usuario_logado->type == 1) {
             system("clear");
@@ -156,4 +156,5 @@ int menu_logs() {
 
     printf("Pressione ENTER para Voltar...");
     getchar();
+    return 1;
 }
