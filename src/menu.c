@@ -99,6 +99,7 @@ void menu_sistema() {
             printf("A encerrar a sessão de %s...\n", usuario_logado->name);
             printf("Pressione [ENTER] para voltar ao menu inicial...");
             getchar();
+            usuario_logado = NULL; // forçando o ponteiro a desconectar de uma conta
             break; 
         }
         // chama o submenu de livros se a entrada for 1
