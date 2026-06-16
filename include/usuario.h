@@ -23,6 +23,7 @@ int carregar_usuarios();
 int limitar_usuarios();
 int campo_vazio(char *texto);
 int validar_atividade(Usuario *usuario);
+void buscar_usuario();
 
 // Transformando em variaveis globais
 extern Usuario *usuario_logado;
