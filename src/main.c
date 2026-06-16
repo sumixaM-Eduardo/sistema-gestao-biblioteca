@@ -7,7 +7,7 @@
 
 int main() {
     system("clear");
-
+    usuario_logado = NULL; // forçando o ponteiro a nao conectar em nenhuma conta
     carregar_usuarios();
     if (totalusuarios == 0) {
         inicializar_sistema();
@@ -16,6 +16,5 @@ int main() {
     inicializar_livros();
     carregar_emprestimos();
     menu_inicial();
-
     return 0;
 }
