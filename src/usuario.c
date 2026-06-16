@@ -351,3 +351,131 @@ int validar_atividade(Usuario *usuario) {
     }
     return 1;
 }
+
+// função de buscar usuario, função do painel de adm
+void buscar_usuario() {
+    int tipo_busca = 0;
+
+    // grande printf da tela de buscar usuario
+    system("clear");
+    printf("======================================================\n");
+    printf("                 SISTEMA DE BIBLIOTECA                \n");
+    printf("                 -> BUSCAR  USUÁRIO <-                \n");
+    printf("======================================================\n");
+    printf("Como deseja buscar o operador?\n");
+    printf("1. Pelo ID\n");
+    printf("2. Pelo Nome de Usuário\n");
+    printf("------------------------------------------------------\n-> ");
+
+    // coleta a opção escolhida e ja verifica se a entrada é valida
+    if (scanf("%d", &tipo_busca) != 1) {
+        while (getchar() != '\n'); // limpa o buffer
+        system("clear");
+        printf("[!] Entrada inválida! Digite apenas números. [!]\n");
+        printf("\nPressione [ENTER] para voltar...");
+        getchar();
+        return;
+    }
+    while (getchar() != '\n'); // limpa o buffer
+
+    int indice_encontrado = -1;
+
+    // busca por id
+    if (tipo_busca == 1) {
+        int id_busca = 0;
+
+        system("clear");
+        printf("======================================================\n");
+        printf("                 SISTEMA DE BIBLIOTECA                \n");
+        printf("                 -> BUSCAR  USUÁRIO <-                \n");
+        printf("======================================================\n");
+        printf("Digite o ID que deseja buscar:\n");
+        printf("------------------------------------------------------\n");
+        printf("-> ");
+
+        if (scanf("%d", &id_busca) != 1) {
+            while (getchar() != '\n'); // limpa o buffer
+            system("clear");
+            printf("======================================================\n");
+            printf("                 SISTEMA DE BIBLIOTECA                \n");
+            printf("                 -> BUSCAR  USUÁRIO <-                \n");
+            printf("======================================================\n");
+            printf("[!] ID inválido! [!]\n");
+            printf("Pressione [ENTER] para continuar...\n");
+            printf("-------------------------------------------------------\n-> ");
+            getchar();
+            return;
+        }
+
+        while (getchar() != '\n'); // limpa o buffer
+
+        // loop que procura um por um
+        for (int i = 0; i < totalusuarios; i++) {
+            if (armazenar[i].id == id_busca && armazenar[i].active == 1) {
+                indice_encontrado = i;
+                break;
+            }
+        }
+    } 
+    // busca pelo nome de usuario
+    else if (tipo_busca == 2) {
+        char username_busca[50];
+
+        system("clear");
+        printf("======================================================\n");
+        printf("                 SISTEMA DE BIBLIOTECA                \n");
+        printf("                 -> BUSCAR  USUÁRIO <-                \n");
+        printf("======================================================\n");
+        printf("Digite o Nome de usuário que deseja buscar:\n");
+        printf("-------------------------------------------------------\n-> ");
+
+        // coleta o nome de usuario que for inserido
+        fgets(username_busca, sizeof(username_busca), stdin);
+        username_busca[strcspn(username_busca, "\n")] = '\0'; // remove o \n no final
+
+        // busca um por um
+        for (int i = 0; i < totalusuarios; i++) {
+            if (strcmp(armazenar[i].username, username_busca) == 0 && armazenar[i].active == 1) {
+                indice_encontrado = i;
+                break;
+            }
+        }
+    } 
+    else {
+        system("clear");
+        printf("======================================================\n");
+        printf("                 SISTEMA DE BIBLIOTECA                \n");
+        printf("                 -> BUSCAR  USUÁRIO <-                \n");
+        printf("======================================================\n");
+        printf("[!] Opção inválida! [!]\n");
+        printf("Pressione [ENTER] para continuar...\n");
+        printf("-------------------------------------------------------\n-> ");
+        getchar();
+        return;
+    }
+
+    // Exibe o resultado da busca
+    system("clear");
+    if (indice_encontrado != -1) {
+        printf("======================================================\n");
+        printf("                 SISTEMA DE BIBLIOTECA                \n");
+        printf("                -> USUÁRIO ENCONTRADO <-              \n");
+        printf("======================================================\n");
+        printf("ID:       %04d\n", armazenar[indice_encontrado].id);
+        printf("Nome:     %s\n", armazenar[indice_encontrado].name);
+        printf("Username: %s\n", armazenar[indice_encontrado].username);
+        printf("Acesso:   %s\n", (armazenar[indice_encontrado].type == 1 ? "Administrador" : "Leitor Comum"));
+        printf("======================================================\n");
+    } else {
+        system("clear");
+        printf("======================================================\n");
+        printf("                 SISTEMA DE BIBLIOTECA                \n");
+        printf("                 -> BUSCAR  USUÁRIO <-                \n");
+        printf("======================================================\n");
+        printf("[!] Operador não localizado ou inativo no sistema. [!]\n");
+        printf("------------------------------------------------------\n");
+    }
+
+    printf("Pressione [ENTER] para voltar...");
+    getchar();
+}

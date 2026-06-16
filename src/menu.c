@@ -307,44 +307,41 @@ void submenu_usuarios() {
         switch (opcao) {
             // se escolher 1 abre a tela de cadastro
             case 1:
-            cadastro();
-            break;
+                cadastro();
+                break;
             // lista todos os usuarios
             case 2:
-            listagem(); 
-            break;
+                listagem(); 
+                break;
             // opção 2 em desenvolvimento
             case 3:
-            system("clear");
-            printf("\n[INFO] Opcao 'Buscar Operador por Login' em desenvolvimento...\n");
-            printf("\nPressione [ENTER] para voltar...");
-            getchar();
-            break;
+                buscar_usuario();
+                break;
             // opção 4 em desenvolvimento
             case 4:
-            system("clear");
-            printf("\n[INFO] Opcao 'Alterar Privilegio/Senha' em desenvolvimento...\n");
-            printf("\nPressione [ENTER] para voltar...");
-            getchar();
-            break;
+                system("clear");
+                printf("\n[INFO] Opcao 'Alterar Privilegio/Senha' em desenvolvimento...\n");
+                printf("\nPressione [ENTER] para voltar...");
+                getchar();
+                break;
             // opção 5 em desenvolvimento
             case 5:
-            system("clear");
-            printf("\n[INFO] Opcao 'Remover Operador' em desenvolvimento...\n");
-            printf("\nPressione [ENTER] para voltar...");
-            getchar();
-            break;
+                system("clear");
+                printf("\n[INFO] Opcao 'Remover Operador' em desenvolvimento...\n");
+                printf("\nPressione [ENTER] para voltar...");
+                getchar();
+                break;
             // opção 0 volta pra o menu principal
             case 0:
-            printf("\nVoltando ao menu principal...\n");
-            break;
+                printf("\nVoltando ao menu principal...\n");
+                break;
             // caso a entrada nao seja valida
             default:
-            system("clear");
-            printf("\n[ERRO] Opcao invalida! Tente novamente.\n");
-            printf("\nPressione [ENTER] para continuar...");
-            getchar();
-            break;
+                system("clear");
+                printf("\n[ERRO] Opcao invalida! Tente novamente.\n");
+                printf("\nPressione [ENTER] para continuar...");
+                getchar();
+                break;
         }
     } while (opcao != 0);
 }
