@@ -58,7 +58,7 @@ A árvore do diretório do projeto está organizada seguindo os padrões recomen
 
 O projeto utiliza o CMake para a automação de compilação, permitindo o gerenciamento isolado de arquivos binários intermediários (out-of-source build). Certifique-se de ter as ferramentas básicas instaladas antes de iniciar.
 
-## 1. Ambiente Linux (Arch Linux, Ubuntu, etc.)
+## Somente Ambiente Linux (Arch Linux, Ubuntu, etc.)
 
 **Pré-requisitos:** O pacote `cmake` e o compilador `gcc` (contido no grupo `base-devel`). No Arch Linux, instale via terminal:
 ```bash
@@ -78,34 +78,6 @@ cd build && cmake ..
 ### Compilar o código-fonte gerando o executável
 ```bash
 make
-```
-### Executar a aplicação
-```bash
-./sistema_gest_o_biblioteca
-```
-
-## 2. Ambiente Windows (Prompt de Comando ou PowerShell)
-
-**Pré-requisitos:** O `CMake` para Windows instalado e configurado nas variáveis de ambiente (PATH), além de um compilador como o `GCC` (via MinGW/MSYS2) ou as ferramentas de build do `Visual Studio`.
-
-**Passo a passo para compilação:**
-### Criar o diretório para os arquivos binários
-```powershell
-mkdir build
-```
-
-### Entrar no diretório e configurar o ambiente com o CMake
-```pwoershell
-cd build
-cmake ..
-```
-### Compilar o projeto de forma multiplataforma utilizando o próprio CMake
-```powershell
-cmake --build .
-```
-### Executar a aplicação (o executável será gerado dentro da pasta Debug ou Release)
-```powershell
-.\Debug\sistema_gest_o_biblioteca.exe
 ```
 
 ## Credenciais de Inicialização Padrão
