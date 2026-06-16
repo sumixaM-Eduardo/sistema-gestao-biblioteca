@@ -138,3 +138,6 @@ data/*.dat
 # Ferramentas auxiliares
 *.agents
 *.codex
+
+#Lixo temporario
+.CMakeLists.txt.swp
