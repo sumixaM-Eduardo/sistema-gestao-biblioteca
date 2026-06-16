@@ -290,8 +290,7 @@ void submenu_usuarios() {
         printf("1. Cadastrar Novo Usuário\n");
         printf("2. Listar Todos os Usuários\n");
         printf("3. Buscar Usuário\n");
-        printf("4. Alterar Privilegio/Senha\n");
-        printf("5. Remover Usuário\n");
+        printf("4. Editar Usuário\n");
         printf("0. Voltar ao Menu Principal\n");
         printf("======================================\n");
         printf("-> ");
@@ -299,49 +298,42 @@ void submenu_usuarios() {
         // Le e ja verifica se a entrada é valida
         if (scanf("%d", &opcao) != 1) {
             while (getchar() != '\n'); // limpa o buffer
+            opcao = -1; 
         } else {
             while (getchar() != '\n'); // limpa o buffer
         }
         
-        // processamento da opção escolhida
-        switch (opcao) {
-            // se escolher 1 abre a tela de cadastro
-            case 1:
-                cadastro();
-                break;
-            // lista todos os usuarios
-            case 2:
-                listagem(); 
-                break;
-            // opção 2 em desenvolvimento
-            case 3:
-                buscar_usuario();
-                break;
-            // opção 4 em desenvolvimento
-            case 4:
-                system("clear");
-                printf("\n[INFO] Opcao 'Alterar Privilegio/Senha' em desenvolvimento...\n");
-                printf("\nPressione [ENTER] para voltar...");
-                getchar();
-                break;
-            // opção 5 em desenvolvimento
-            case 5:
-                system("clear");
-                printf("\n[INFO] Opcao 'Remover Operador' em desenvolvimento...\n");
-                printf("\nPressione [ENTER] para voltar...");
-                getchar();
-                break;
-            // opção 0 volta pra o menu principal
-            case 0:
-                printf("\nVoltando ao menu principal...\n");
-                break;
-            // caso a entrada nao seja valida
-            default:
-                system("clear");
-                printf("\n[ERRO] Opcao invalida! Tente novamente.\n");
-                printf("\nPressione [ENTER] para continuar...");
-                getchar();
-                break;
+        // se escolher 1 abre a tela de cadastro
+        if (opcao == 1) {
+            cadastro();
+        }
+        // se escolher 2 lista todos os usuarios
+        else if (opcao == 2) {
+            listagem(); 
+        }
+        // se escolher 3 abre a busca de usuario
+        else if (opcao == 3) {
+            buscar_usuario();
+        }
+        // se escolher 4 abre o editor de usuario
+        else if (opcao == 4) {
+            editar_usuario();
+        }
+        // opção 0 volta pra o menu principal
+        else if (opcao == 0) {
+            // mantem o 0, quando chegar na verificaçção ele vai parar o loop
+        }
+        // caso a entrada nao seja valida
+        else {
+            system("clear");
+            printf("=========================================\n");
+            printf("       SISTEMA DE BIBLIOTECA        \n");
+            printf("      SUBMENU: GESTÃO DE USUÁRIOS   \n");
+            printf("=========================================\n");
+            printf("[!] Opcao invalida! Tente novamente. [!]\n");
+            printf("-----------------------------------------\n");
+            printf("Pressione [ENTER] para continuar...");
+            getchar();
         }
     } while (opcao != 0);
 }
