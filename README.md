@@ -132,8 +132,5 @@ Este projeto foi desenvolvido como parte das atividades acadêmicas do curso de 
 Desenvolvido com dedicação por:
 * **Jhonatan Mickael** — [*jhonatanmickael*](https://github.com/jhonatanmickael)
 * **Maximus Eduardo** — [*sumixaM-Eduardo*](https://github.com/sumixaM-Eduardo)
-* **Cauet Remigio** — [*cauergss*](https://github.com/cauergss)
-* **Luis Felipe** — [*Felipemachado292*](https://github.com/Felipemachado292)
-* **Roger**
 ---
 Sinta-se à vontade para clonar, testar o código e sugerir melhorias abrindo uma *Issue* ou um *Pull Request* no repositório! 🚀
